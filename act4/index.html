@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad: Domando el DOM</title>
+    <style>
+        /* Estilos base para la interfaz */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .contenedor {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #1a1a1a;
+            font-size: 24px;
+            margin-top: 0;
+        }
+        .descripcion {
+            color: #666666;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+        li:hover {
+            background-color: #ffeef0;
+            border-color: #ffc107;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <!-- Elementos para el Reto 1 -->
+        <h1 id="titulo-principal">Texto Inicial del Título</h1>
+        <p class="descripcion">Este párrafo simula ser una descripción del sistema. Los alumnos deben cambiar su estilo visual mediante manipulación directa en JavaScript.</p>
+        
+        <!-- Elementos para los Retos 2 y 3 -->
+        <div class="input-group">
+            <input type="text" id="nueva-tarea" placeholder="Escribe una nueva tarea...">
+            <button id="btn-agregar">Agregar</button>
+        </div>
+
+        <!-- Elemento para el Reto 3 y 4 -->
+        <ul id="lista-tareas">
+            <li>Ejemplo de tarea estática (Hazme clic para borrar)</li>
+        </ul>
+    </div>
+
+    <!-- Vinculación del script -->
+    <script src="app.js"></script>
+</body>
+</html>
