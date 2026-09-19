@@ -139,3 +139,9 @@ Una vez revisado y aprobado este plan:
 1. Crear el archivo de respuestas teóricas `docs/respuestas_teoria.md`.
 2. Crear los archivos base de la aplicación (`index.html`, `css/styles.css`, `js/ajax.js`, `js/app.js`).
 3. Probar la integración completa en el navegador.
+
+### Dudas
+
+AJAX no es una tecnología, lenguaje.
+
+AJAX es una técnica para acceder a servidores desde una página web por medio de peticiones asíncronas.
