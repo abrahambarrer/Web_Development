@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demostración AJAX & XMLHttpRequest - FakeStore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Encabezado del Proyecto -->
+  <header class="header">
+    <h1>Historia y Funcionamiento de AJAX</h1>
+    <p>Demostración práctica de comunicación asíncrona mediante <code>XMLHttpRequest</code></p>
+  </header>
+
+  <main class="container">
+    <!-- Indicador de Carga (Loader) -->
+    <div id="loader" class="loader-container">
+      <div class="spinner"></div>
+      <p>Cargando datos vía XMLHttpRequest...</p>
+    </div>
+
+    <!-- Grid donde tu compañero insertará los productos mediante JS -->
+    <section id="products-grid" class="products-grid">
+      <!-- Ejemplo visual provisional (tu compañero lo generará dinámicamente) -->
+    </section>
+  </main>
+
+  <!-- Modal de Detalles del Producto -->
+  <div id="detail-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button id="close-modal" class="close-btn">&times;</button>
+      <div class="modal-body">
+        <img id="modal-img" src="" alt="Imagen del producto" class="modal-img">
+        <div class="modal-info">
+          <span id="modal-category" class="badge">Categoría</span>
+          <h2 id="modal-title">Título del producto</h2>
+          <p id="modal-description">Descripción detallada del producto...</p>
+          <div class="modal-footer">
+            <span id="modal-price" class="price">$0.00</span>
+            <button class="btn-buy">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
