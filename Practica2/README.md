@@ -30,9 +30,10 @@ Practica2/
 ├── index.html                  # Página principal (estructura semántica de la UI)
 ├── css/
 │   └── styles.css              # Estilos visuales, grid responsivo, loaders y modal
-├── js/
-│   ├── ajax.js                 # Capa de red: funciones reutilizables con XMLHttpRequest
-│   └── app.js                  # Lógica de negocio: manipulación de DOM, eventos y renderizado
+├── src/
+│   ├── api.js                  # Endpoints de FakeStore API
+│   ├── services.js             # Capa de red: funciones reutilizables con XMLHttpRequest
+│   └── script.js               # Lógica de negocio: manipulación de DOM, eventos y renderizado
 ├── docs/
 │   └── respuestas_teoria.md    # Documento con la resolución de las preguntas de task.md
 ├── task.md                     # Enunciado original de la práctica
