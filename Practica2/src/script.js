@@ -69,16 +69,32 @@ const renderProducts = (products) => {
   productsGrid.appendChild(fragment);
 };
 
-const init = async () => {
-  try {
-    const { products } = await getProductsClassic();
-    loader.style.display = "none";
-    renderProducts(products);
-  } catch (error) {
-    loader.style.display = "none";
-    productsGrid.innerHTML = `<p style="color: #ef4444; font-weight: 600; text-align: center; grid-column: 1 / -1;">Error al cargar datos con XMLHttpRequest: ${error.message}</p>`;
-    console.error("Error al cargar productos:", error);
-  }
+// const init = async () => {
+//   try {
+//     const { products } = await get_products();
+//     loader.style.display = "none";
+//     renderProducts(products);
+//   } catch (error) {
+//     loader.style.display = "none";
+//     productsGrid.innerHTML = `<p style="color: #ef4444; font-weight: 600; text-align: center; grid-column: 1 / -1;">Error al cargar datos con XMLHttpRequest: ${error.message}</p>`;
+//     console.error("Error:", error);
+//   }
+// };
+
+const init = () => {
+  loader.style.display = "block";
+
+  getProductsClassic(
+    (products) => {
+      loader.style.display = "none";
+      renderProducts(products);
+    },
+    (error) => {
+      loader.style.display = "none";
+      productsGrid.innerHTML = `<p style="color: #ef4444; font-weight: 600; text-align: center; grid-column: 1 / -1;">Error al cargar datos con XMLHttpRequest: ${error.message}</p>`;
+      console.error("Error al cargar productos:", error);
+    }
+  );
 };
 
 closeModalBtn.addEventListener("click", closeModal);
