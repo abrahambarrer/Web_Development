@@ -19,31 +19,52 @@ export const get_products = async () => {
 }
 
 export const getProductsClassic = (onSuccess, onError) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", API_ENDPOINTS.products.list(), true);
-    xhr.timeout = 8000;
-    
-    xhr.onload = function () {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            try {
-                const data = JSON.parse(xhr.responseText);
-                const products = Array.isArray(data) ? data : (data.products || []);
-                onSuccess(products);
-            } catch (e) {
-                onError(new Error("No se pudo interpretar el JSON recibido."));
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", API_ENDPOINTS.products.list(), true);
+        xhr.timeout = 8000;
+        
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    const data = JSON.parse(xhr.responseText);
+                    const products = Array.isArray(data) ? data : (data.products || []);
+                    if (typeof onSuccess === "function") {
+                        onSuccess(products);
+                    }
+                    resolve({ products });
+                } catch (e) {
+                    const error = new Error("No se pudo interpretar el JSON recibido.");
+                    if (typeof onError === "function") {
+                        onError(error);
+                    }
+                    reject(error);
+                }
+            } else {
+                const error = new Error(`Error HTTP ${xhr.status}: ${xhr.statusText}`);
+                if (typeof onError === "function") {
+                    onError(error);
+                }
+                reject(error);
             }
-        } else {
-            onError(new Error(`Error HTTP ${xhr.status}: ${xhr.statusText}`));
-        }
-    };
-    
-    xhr.onerror = function () {
-        onError(new Error("Error de red o conexión perdida."));
-    };
-    
-    xhr.ontimeout = function () {
-        onError(new Error("Tiempo de espera agotado."));
-    };
-    
-    xhr.send();
-}
+        };
+        
+        xhr.onerror = function () {
+            const error = new Error("Error de red o conexión perdida.");
+            if (typeof onError === "function") {
+                onError(error);
+            }
+            reject(error);
+        };
+        
+        xhr.ontimeout = function () {
+            const error = new Error("Tiempo de espera agotado.");
+            if (typeof onError === "function") {
+                onError(error);
+            }
+            reject(error);
+        };
+        
+        xhr.send();
+    });
+};
