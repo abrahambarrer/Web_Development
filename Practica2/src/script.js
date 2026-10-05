@@ -12,7 +12,8 @@ const modalDescription = document.getElementById("modal-description");
 const modalPrice = document.getElementById("modal-price");
 
 const openModal = (product) => {
-  modalImg.src = product.image;
+  const imageUrl = product.thumbnail || product.image || (product.images && product.images[0]) || "";
+  modalImg.src = imageUrl;
   modalImg.alt = product.title;
   modalCategory.textContent = product.category;
   modalTitle.textContent = product.title;
@@ -30,8 +31,10 @@ const createProductCard = (product) => {
   const card = document.createElement("article");
   card.className = "product-card";
 
+  const imageUrl = product.thumbnail || product.image || (product.images && product.images[0]) || "";
+
   card.innerHTML = `
-    <img src="${product.image}" alt="${product.title}" loading="lazy">
+    <img src="${imageUrl}" alt="${product.title}" loading="lazy">
     <h3 class="title">${product.title}</h3>
     <span class="price">$${product.price.toFixed(2)}</span>
   `;

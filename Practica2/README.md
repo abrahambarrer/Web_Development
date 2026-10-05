@@ -16,10 +16,11 @@ Este documento define la hoja de ruta, arquitectura del proyecto, división de t
 
 | Opción | API | Endpoint Recomendado | Ventajas para la Práctica |
 |---|---|---|---|
-| **Opción A (Recomendada)** | **FakeStore API** | `https://fakestoreapi.com/products` | Permite construir un catálogo de productos muy visual con imágenes, precios, categorías y valoraciones. Gran impacto visual para la entrega. |
+| **Opción Activa (DummyJSON)** | **DummyJSON** | `https://dummyjson.com/products` | Catálogo completo con imágenes, categorías, precios y descripciones. Alternativa ideal y robusta tras el mantenimiento de FakeStore API. |
+| **Opción A (Original)** | **FakeStore API** | `https://fakestoreapi.com/products` | Catálogo de productos original (en mantenimiento temporal). |
 | **Opción B** | **JSONPlaceholder** | `https://jsonplaceholder.typicode.com/users` o `/posts` | Estructura de datos muy directa, ideal para directorio de usuarios o blog de publicaciones. Menor carga visual de imágenes. |
 
-> **Decisión sugerida**: **FakeStore API** por ofrecer imágenes reales y campos como categoría y precio, lo que facilita implementar filtros dinámicos en la interfaz.
+> **Decisión en rama `practica2/DummyJSON`**: Se adaptó el proyecto a **DummyJSON** por su alta disponibilidad y compatibilidad con el modelo de datos de catálogo (imágenes, categorías, precios y detalle modal).
 
 ---
 
@@ -31,8 +32,8 @@ Practica2/
 ├── css/
 │   └── styles.css              # Estilos visuales, grid responsivo, loaders y modal
 ├── src/
-│   ├── api.js                  # Endpoints de FakeStore API
-│   ├── services.js             # Capa de red: funciones reutilizables con XMLHttpRequest
+│   ├── api.js                  # Endpoints de DummyJSON API
+│   ├── services.js             # Capa de red: funciones reutilizables con fetch y XMLHttpRequest
 │   └── script.js               # Lógica de negocio: manipulación de DOM, eventos y renderizado
 ├── docs/
 │   └── respuestas_teoria.md    # Documento con la resolución de las preguntas de task.md
