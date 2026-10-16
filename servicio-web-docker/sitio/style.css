@@ -1,0 +1,124 @@
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: white;
+  text-align: center;
+  padding: 3rem 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.header h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.header p {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+/* Main Container */
+.container {
+  max-width: 1080px;
+  width: 90%;
+  margin: 2.5rem auto;
+  flex: 1;
+}
+
+/* Intro Section */
+.intro {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding: 1.25rem 1.5rem;
+  background-color: #ffffff;
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.intro p {
+  font-size: 1.15rem;
+  color: #334155;
+  font-weight: 500;
+}
+
+/* Services */
+.services-section {
+  margin-bottom: 2rem;
+}
+
+.services-title {
+  text-align: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.75rem;
+  color: #0f172a;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.service-card {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  padding: 2rem 1.75rem;
+  box-shadow: var(--shadow);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--primary);
+  border-bottom: 2px solid #eff6ff;
+  padding-bottom: 0.5rem;
+}
+
+.service-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  background-color: #0f172a;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
