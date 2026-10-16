@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ======================================================================
+     ESQUEMA DTD: Azomalli.dtd
+     Tema: Catálogo de Panadería y Repostería Las Glorias de Azomalli
+     
+     CONSTRUCCIONES DTD INCLUIDAS:
+     1. Elementos:
+        - Vacíos: <ambiente/>, <tibio/>, <frio/>, <artesanal/>, <industrial/>,
+                  <individual/>, <charola/>, <paquete/>, <productosIncluidos/>
+        - De texto (#PCDATA): <nombre>, <precio>, <pesoAprox>, <calorias>, etc.
+        - Con sub-elementos: <CatalogoLasGloriasDeAzomalli>, <sucursal>, <categoria>,
+                             <producto>, <detalle>, <presentacion>, etc.
+        - De contenido mixto: <descripcion (#PCDATA | destacado | etiqueta)*>
+     2. Atributos:
+        - Definidos con directivas <!ATTLIST>
+     3. Tipos de datos de atributos:
+        - CDATA (texto libre): version, fechaEmision, codigo, sistema, etc.
+        - Enumeración: (dulce | salado | temporada | especial), (si | no), etc.
+        - Claves y Referencias: ID (identificador único), IDREF (referencia a un ID),
+                                IDREFS (referencia múltiple a IDs).
+     4. Operadores:
+        - Secuencia: , (coma)
+        - Elección: | (barra vertical)
+     5. Limitaciones de ocurrencia:
+        - Elementos: ? (cero o una), + (una o más), * (cero o más), y exacta (1).
+        - Atributos: #REQUIRED, #IMPLIED, #FIXED, valor por defecto.
+     6. Entidades generales: <!ENTITY ...>
+     ====================================================================== -->
+
+<!-- 1. DECLARACIÓN DE ENTIDADES GENERALES -->
+<!ENTITY nombrePanaderia "Las Glorias de Azomalli">
+<!ENTITY monedaDefecto "MXN">
+<!ENTITY ciudad "Orizaba, Veracruz">
+<!ENTITY horarioAtencionMatriz "Lunes a Domingo de 7:00 a 21:00 hrs">
+<!ENTITY avisoLegal "Precios en moneda nacional con IVA incluido. Productos sujetos a disponibilidad por horneado diario.">
+
+<!-- 2. ELEMENTO RAÍZ Y ESTRUCTURA GENERAL -->
+<!-- Operador de secuencia (,) y opcional (?) -->
+<!ELEMENT CatalogoLasGloriasDeAzomalli (metadatos, sucursal, categorias, combosPromocionales?)>
+<!ATTLIST CatalogoLasGloriasDeAzomalli
+    version CDATA #FIXED "1.0"
+    fechaEmision CDATA #REQUIRED
+    sistema CDATA #IMPLIED
+>
+
+<!-- 3. METADATOS DEL CATÁLOGO -->
+<!ELEMENT metadatos (titulo, descripcionEmpresa, contacto, avisoGeneral)>
+<!ELEMENT titulo (#PCDATA)>
+<!ELEMENT descripcionEmpresa (#PCDATA)>
+<!ELEMENT contacto (telefono, email, horario)>
+<!ELEMENT telefono (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT horario (#PCDATA)>
+<!ELEMENT avisoGeneral (#PCDATA)>
+
+<!-- 4. INFORMACIÓN DE SUCURSAL (Uso de ID y enumeración con valor por defecto) -->
+<!ELEMENT sucursal (nombreSucursal, direccion, telefonoSucursal)>
+<!ATTLIST sucursal
+    id ID #REQUIRED
+    zona (matriz | norte | sur | poniente) "matriz"
+>
+<!ELEMENT nombreSucursal (#PCDATA)>
+<!ELEMENT direccion (#PCDATA)>
+<!ELEMENT telefonoSucursal (#PCDATA)>
+
+<!-- 5. CATEGORÍAS (Demuestra operador + y fan-out en productos) -->
+<!ELEMENT categorias (categoria+)>
+<!ELEMENT categoria (nombreCategoria, descripcionCategoria?, producto+)>
+<!ATTLIST categoria
+    id ID #REQUIRED
+    tipo (dulce | salado | temporada | especial) #REQUIRED
+    activa (si | no) "si"
+>
+<!ELEMENT nombreCategoria (#PCDATA)>
+<!ELEMENT descripcionCategoria (#PCDATA)>
+
+<!-- 6. PRODUCTO (Claves ID, referencias IDREF, atributos CDATA y enumerados) -->
+<!ELEMENT producto (nombre, descripcion, precio, detalle, presentacion, informacionNutricional?, conservacion)>
+<!ATTLIST producto
+    id ID #REQUIRED
+    categoriaRef IDREF #REQUIRED
+    relacionado IDREF #IMPLIED
+    codigo CDATA #REQUIRED
+    disponible (si | no) "si"
+    nivelDemanda (alta | media | baja) "media"
+>
+
+<!-- Elemento puramente textual -->
+<!ELEMENT nombre (#PCDATA)>
+
+<!-- ELEMENTO CON CONTENIDO MIXTO: Texto intercalado con sub-elementos -->
+<!ELEMENT descripcion (#PCDATA | destacado | etiqueta)*>
+<!ELEMENT destacado (#PCDATA)>
+<!ELEMENT etiqueta (#PCDATA)>
+
+<!-- Elemento de precio con atributo fijo (#FIXED) y atributo con valor por defecto -->
+<!ELEMENT precio (#PCDATA)>
+<!ATTLIST precio
+    moneda CDATA #FIXED "MXN"
+    ivaIncluido (si | no) "si"
+>
+
+<!-- 7. DETALLE DEL PRODUCTO (Profundidad del árbol XML >= 5) -->
+<!ELEMENT detalle (especificaciones, ingredientes, elaborado)>
+<!ELEMENT especificaciones (pesoAprox, tiempoHorneado, temperaturaConsumo)>
+<!ELEMENT pesoAprox (#PCDATA)>
+<!ELEMENT tiempoHorneado (#PCDATA)>
+
+<!-- Operador de elección (|) entre elementos vacíos (EMPTY) -->
+<!ELEMENT temperaturaConsumo (ambiente | tibio | frio)>
+<!ELEMENT ambiente EMPTY>
+<!ELEMENT tibio EMPTY>
+<!ELEMENT frio EMPTY>
+
+<!ELEMENT ingredientes (ingrediente+)>
+<!ELEMENT ingrediente (#PCDATA)>
+<!ATTLIST ingrediente
+    alergeno (si | no) "no"
+>
+
+<!-- ELEMENTOS VACÍOS (EMPTY) con atributo opcional -->
+<!ELEMENT elaborado (artesanal | industrial)>
+<!ELEMENT artesanal EMPTY>
+<!ATTLIST artesanal
+    hechoAMano (si | no) "si"
+>
+<!ELEMENT industrial EMPTY>
+
+<!-- 8. PRESENTACIÓN Y EMPAQUE -->
+<!ELEMENT presentacion (empaque, porciones)>
+<!ELEMENT empaque (individual | charola | paquete)>
+<!ELEMENT individual EMPTY>
+<!ELEMENT charola EMPTY>
+<!ELEMENT paquete EMPTY>
+<!ELEMENT porciones (#PCDATA)>
+
+<!-- 9. INFORMACIÓN NUTRICIONAL (Nivel profundo del árbol) -->
+<!ELEMENT informacionNutricional (porcNutricional, valoresNutricionales)>
+<!ELEMENT porcNutricional (#PCDATA)>
+<!ELEMENT valoresNutricionales (calorias, grasasTotales, azucares, sodio)>
+<!ELEMENT calorias (#PCDATA)>
+<!ELEMENT grasasTotales (#PCDATA)>
+<!ELEMENT azucares (#PCDATA)>
+<!ELEMENT sodio (#PCDATA)>
+
+<!-- 10. CONSERVACIÓN (Contiene sección CDATA en el documento XML) -->
+<!ELEMENT conservacion (#PCDATA)>
+
+<!-- 11. COMBOS PROMOCIONALES (Demuestra IDREFS para referenciar múltiples productos) -->
+<!ELEMENT combosPromocionales (combo+)>
+<!ELEMENT combo (nombreCombo, descripcionCombo, precioCombo, productosIncluidos)>
+<!ATTLIST combo
+    id ID #REQUIRED
+    descuento CDATA #IMPLIED
+>
+<!ELEMENT nombreCombo (#PCDATA)>
+<!ELEMENT descripcionCombo (#PCDATA)>
+<!ELEMENT precioCombo (#PCDATA)>
+<!ATTLIST precioCombo
+    moneda CDATA #FIXED "MXN"
+>
+
+<!-- Elemento vacío que referencia múltiples productos por sus IDs (IDREFS) -->
+<!ELEMENT productosIncluidos EMPTY>
+<!ATTLIST productosIncluidos
+    referencias IDREFS #REQUIRED
+>
