@@ -1,0 +1,1304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="estilos.css"?>
+<?azomalli-sistema version="2.0" modulo="catalogo-digital" fecha="2026-10-07"?>
+
+<!-- ======================================================================
+     DOCUMENTO XML: Catálogo Oficial "Las Glorias de Azomalli"
+     
+     CUMPLIMIENTO DE REQUISITOS DEL PROYECTO (task.txt):
+     1. Esquema DTD asociado: Azomalli.dtd
+     2. Elementos: vacíos (<ambiente/>, <artesanal/>, <individual/>), de texto
+        (#PCDATA), con sub-elementos, y de contenido mixto (<descripcion>).
+     3. Atributos: CDATA, enumerados, #REQUIRED, #IMPLIED, #FIXED y con valor por defecto.
+     4. Claves y referencias: ID (suc-matriz, cat-dulces, prod-concha, etc.),
+        IDREF (categoriaRef, relacionado) e IDREFS (referencias en combo).
+     5. Profundidad del documento >= 5:
+        Nivel 1: CatalogoLasGloriasDeAzomalli
+        Nivel 2: categorias
+        Nivel 3: categoria
+        Nivel 4: producto
+        Nivel 5: informacionNutricional
+        Nivel 6: valoresNutricionales
+        Nivel 7: calorias  (Profundidad total = 7 niveles)
+     6. Fan-out >= 8:
+        El elemento <categoria id="cat-dulces"> contiene 18 sub-elementos <producto> directos.
+        El elemento <categoria id="cat-salados"> contiene 12 sub-elementos <producto> directos.
+     7. Entidades generales: &nombrePanaderia;, &ciudad;, &horarioAtencionMatriz;, &avisoLegal;
+     8. Instrucciones de procesamiento: <?xml-stylesheet ...?> y <?azomalli-sistema ...?>
+     9. Secciones CDATA: Incluidas en elementos <conservacion> con caracteres especiales (<, >, &).
+     10. Comentarios: Explicativos a lo largo del documento.
+     11. Datos de pan incorporados: Todos los 34 panes listados en pan.txt.
+     ====================================================================== -->
+<!DOCTYPE CatalogoLasGloriasDeAzomalli SYSTEM "Azomalli.dtd">
+
+<CatalogoLasGloriasDeAzomalli version="1.0" fechaEmision="2026-10-07" sistema="AzomalliPOS-Enterprise">
+
+    <!-- METADATOS Y CONTACTO (Uso de entidades generales) -->
+    <metadatos>
+        <titulo>Catálogo de Productos - &nombrePanaderia;</titulo>
+        <descripcionEmpresa>Panadería, repostería fina y pan artesanal horneado diariamente en &ciudad;.</descripcionEmpresa>
+        <contacto>
+            <telefono>272-123-4567</telefono>
+            <email>contacto@lasgloriasdeazomalli.mx</email>
+            <horario>&horarioAtencionMatriz;</horario>
+        </contacto>
+        <avisoGeneral>&avisoLegal;</avisoGeneral>
+    </metadatos>
+
+    <!-- SUCURSAL (Clave ID y atributo enumerado con valor por defecto) -->
+    <sucursal id="suc-matriz" zona="matriz">
+        <nombreSucursal>Sucursal Central &nombrePanaderia;</nombreSucursal>
+        <direccion>Av. Cri-Crí No. 540, Centro, &ciudad;</direccion>
+        <telefonoSucursal>272-724-0011</telefonoSucursal>
+    </sucursal>
+
+    <!-- SECCIÓN DE CATEGORÍAS -->
+    <categorias>
+
+        <!-- ==================================================================
+             CATEGORÍA 1: DULCES (FAN-OUT = 18 subelementos producto directos >= 8)
+             ================================================================== -->
+        <categoria id="cat-dulces" tipo="dulce" activa="si">
+            <nombreCategoria>Pan Dulce Tradicional y Fino</nombreCategoria>
+            <descripcionCategoria>Exquisita selección de panes dulces elaborados con mantequilla pura de vaca y recetas tradicionales mexicanas.</descripcionCategoria>
+
+            <!-- 1. Concha -->
+            <producto id="prod-concha" categoriaRef="cat-dulces" codigo="DUL-001" disponible="si" nivelDemanda="alta">
+                <nombre>Concha</nombre>
+                <descripcion>Clásica concha mexicana con esponjosa miga de vainilla y <destacado>costra azucarada crocante</destacado> horneada a la perfección.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">14.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>95g</pesoAprox>
+                        <tiempoHorneado>18 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla de vaca</ingrediente>
+                        <ingrediente alergeno="si">Huevo fresco</ingrediente>
+                        <ingrediente alergeno="no">Azúcar morena</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (95g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>310 kcal</calorias>
+                        <grasasTotales>11g</grasasTotales>
+                        <azucares>16g</azucares>
+                        <sodio>180mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar a temperatura ambiente < 24°C dentro de bolsa de papel. Evitar humedad > 65% & luz directa. Para disfrutar caliente, recalentar 2 min a 150°C.]]></conservacion>
+            </producto>
+
+            <!-- 2. Concha de Mantequilla -->
+            <producto id="prod-concha-mantequilla" categoriaRef="cat-dulces" relacionado="prod-concha" codigo="DUL-002" disponible="si" nivelDemanda="alta">
+                <nombre>Concha de Mantequilla</nombre>
+                <descripcion>Versión premium con doble amasado y <destacado>100% mantequilla Gloria</destacado>, cubierta de pasta azucarada dorada.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">18.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>110g</pesoAprox>
+                        <tiempoHorneado>20 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla artesanal</ingrediente>
+                        <ingrediente alergeno="si">Huevo entero</ingrediente>
+                        <ingrediente alergeno="no">Vainilla pura</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (110g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>360 kcal</calorias>
+                        <grasasTotales>15g</grasasTotales>
+                        <azucares>18g</azucares>
+                        <sodio>190mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Guardar en panera a temperatura ambiente (< 25°C). Mantener alejado de olores fuertes & humedad.]]></conservacion>
+            </producto>
+
+            <!-- 3. Mantecadas -->
+            <producto id="prod-mantecadas" categoriaRef="cat-dulces" codigo="DUL-003" disponible="si" nivelDemanda="alta">
+                <nombre>Mantecadas</nombre>
+                <descripcion>Bizcocho suave y esponjoso horneado en capacillo rojo, con agradable <etiqueta>aroma a mantequilla y naranja</etiqueta>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">15.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>85g</pesoAprox>
+                        <tiempoHorneado>22 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina seleccionada</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla</ingrediente>
+                        <ingrediente alergeno="si">Huevo</ingrediente>
+                        <ingrediente alergeno="no">Ralladura de naranja</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><paquete/></empaque>
+                    <porciones>2 piezas</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (85g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>290 kcal</calorias>
+                        <grasasTotales>12g</grasasTotales>
+                        <azucares>15g</azucares>
+                        <sodio>140mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Mantener dentro de su paquete sellado. Consumir dentro de las 72 horas posteriores a la compra.]]></conservacion>
+            </producto>
+
+            <!-- 4. Mantecadas de Nuez -->
+            <producto id="prod-mantecadas-nuez" categoriaRef="cat-dulces" relacionado="prod-mantecadas" codigo="DUL-004" disponible="si" nivelDemanda="media">
+                <nombre>Mantecadas de Nuez</nombre>
+                <descripcion>Delicioso panqué individual coronado con <destacado>trozos de nuez pecana tostada</destacado> en la cubierta.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">18.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>90g</pesoAprox>
+                        <tiempoHorneado>22 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Nuez pecana</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla y leche</ingrediente>
+                        <ingrediente alergeno="no">Azúcar estándar</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (90g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>330 kcal</calorias>
+                        <grasasTotales>16g</grasasTotales>
+                        <azucares>14g</azucares>
+                        <sodio>145mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar en lugar seco (< 22°C). Contiene nuez, manipular con precaución ante alergias.]]></conservacion>
+            </producto>
+
+            <!-- 5. Muffins -->
+            <producto id="prod-muffins" categoriaRef="cat-dulces" codigo="DUL-005" disponible="si" nivelDemanda="alta">
+                <nombre>Muffins</nombre>
+                <descripcion>Muffins horneados al estilo europeo con textura húmeda y <destacado>chispas de chocolate semiamargo</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">20.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>100g</pesoAprox>
+                        <tiempoHorneado>25 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Chocolate 55% cacao</ingrediente>
+                        <ingrediente alergeno="si">Leche entera</ingrediente>
+                        <ingrediente alergeno="no">Aceite vegetal y cacao</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (100g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>350 kcal</calorias>
+                        <grasasTotales>14g</grasasTotales>
+                        <azucares>20g</azucares>
+                        <sodio>160mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Consérvese fresco a temperatura ambiente (< 23°C). No refrigerar para evitar endurecimiento de la miga.]]></conservacion>
+            </producto>
+
+            <!-- 6. Roles de Canela -->
+            <producto id="prod-roles-canela" categoriaRef="cat-dulces" codigo="DUL-006" disponible="si" nivelDemanda="alta">
+                <nombre>Roles de Canela</nombre>
+                <descripcion>Espiral de masa brioche enrollada con abundante <destacado>canela de Ceilán y pasas</destacado>, bañada en glaseado de vainilla.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">22.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>130g</pesoAprox>
+                        <tiempoHorneado>24 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla Gloria</ingrediente>
+                        <ingrediente alergeno="no">Canela pura en polvo</ingrediente>
+                        <ingrediente alergeno="no">Pasitas selectas</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (130g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>410 kcal</calorias>
+                        <grasasTotales>14g</grasasTotales>
+                        <azucares>26g</azucares>
+                        <sodio>210mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Calentar 20 segundos en microondas o 3 min en horno a 160°C para reactivar el glaseado aromático.]]></conservacion>
+            </producto>
+
+            <!-- 7. Chocolatines -->
+            <producto id="prod-chocolatines" categoriaRef="cat-dulces" codigo="DUL-007" disponible="si" nivelDemanda="alta">
+                <nombre>Chocolatines</nombre>
+                <descripcion>Hojaldre crujiente estilo pain au chocolat relleno de <destacado>dos barras de chocolate belga horneable</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">24.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>90g</pesoAprox>
+                        <tiempoHorneado>20 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo de alta fuerza</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla para hojaldre</ingrediente>
+                        <ingrediente alergeno="si">Chocolate amargo en barra</ingrediente>
+                        <ingrediente alergeno="si">Barniz de huevo</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (90g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>380 kcal</calorias>
+                        <grasasTotales>20g</grasasTotales>
+                        <azucares>17g</azucares>
+                        <sodio>190mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar en bolsa de papel Kraft a < 22°C. Si se reblandece, meter al horno tostador por 2 minutos a 180°C.]]></conservacion>
+            </producto>
+
+            <!-- 8. Garras de Oso -->
+            <producto id="prod-garras-oso" categoriaRef="cat-dulces" codigo="DUL-008" disponible="si" nivelDemanda="media">
+                <nombre>Garras de Oso</nombre>
+                <descripcion>Pieza hojaldrada con cortes transversales rellena de <destacado>pasta de almendras y manzana</destacado>, cubierta con almendras fileteadas.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">22.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>115g</pesoAprox>
+                        <tiempoHorneado>22 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Almendras laminadas</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla</ingrediente>
+                        <ingrediente alergeno="no">Puré de manzana</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (115g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>390 kcal</calorias>
+                        <grasasTotales>19g</grasasTotales>
+                        <azucares>18g</azucares>
+                        <sodio>170mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Mantener protegido de corrientes de aire & humedad relativa alta. Vida de anaquel recomendada: 48 horas.]]></conservacion>
+            </producto>
+
+            <!-- 9. Pan de Mantequilla -->
+            <producto id="prod-pan-mantequilla" categoriaRef="cat-dulces" codigo="DUL-009" disponible="si" nivelDemanda="alta">
+                <nombre>Pan de Mantequilla</nombre>
+                <descripcion>Masa fina y suave enriquecida con mantequilla de rancho, espolvoreada con <etiqueta>fina lluvia de azúcar glas</etiqueta>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">16.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>105g</pesoAprox>
+                        <tiempoHorneado>19 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla de rancho</ingrediente>
+                        <ingrediente alergeno="si">Yemas de huevo</ingrediente>
+                        <ingrediente alergeno="no">Azúcar impalpable</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (105g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>340 kcal</calorias>
+                        <grasasTotales>13g</grasasTotales>
+                        <azucares>14g</azucares>
+                        <sodio>150mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar a temperatura ambiente fresca (< 22°C). Ideal para acompañar con café lechero o chocolate caliente.]]></conservacion>
+            </producto>
+
+            <!-- 10. Bisquetes -->
+            <producto id="prod-bisquetes" categoriaRef="cat-dulces" codigo="DUL-010" disponible="si" nivelDemanda="alta">
+                <nombre>Bisquetes</nombre>
+                <descripcion>Pan compacto con su característico ombligo central, corteza dorada y <destacado>miga hojaldrada y mantecosa</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">14.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>95g</pesoAprox>
+                        <tiempoHorneado>18 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla y manteca vegetal</ingrediente>
+                        <ingrediente alergeno="si">Leche entera</ingrediente>
+                        <ingrediente alergeno="no">Polvo para hornear</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (95g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>320 kcal</calorias>
+                        <grasasTotales>13g</grasasTotales>
+                        <azucares>7g</azucares>
+                        <sodio>240mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Calentar en comal o tostador antes de untar con mantequilla & mermelada de fresa artesanal.]]></conservacion>
+            </producto>
+
+            <!-- 11. Rollo de Piña -->
+            <producto id="prod-rollo-pina" categoriaRef="cat-dulces" codigo="DUL-011" disponible="si" nivelDemanda="media">
+                <nombre>Rollo de Piña</nombre>
+                <descripcion>Brazo de reina horneado con bizcocho suave enrollado con <destacado>mermelada artesanal de piña miel</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">20.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>120g</pesoAprox>
+                        <tiempoHorneado>20 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Huevo</ingrediente>
+                        <ingrediente alergeno="no">Piña natural de la cuenca del Papaloapan</ingrediente>
+                        <ingrediente alergeno="no">Azúcar morena</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 rebanada generosa</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 porción (120g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>315 kcal</calorias>
+                        <grasasTotales>7g</grasasTotales>
+                        <azucares>24g</azucares>
+                        <sodio>130mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Mantener protegido del aire para preservar la humedad del bizcocho. Temperatura < 22°C.]]></conservacion>
+            </producto>
+
+            <!-- 12. Rollo de Manzana -->
+            <producto id="prod-rollo-manzana" categoriaRef="cat-dulces" relacionado="prod-rollo-pina" codigo="DUL-012" disponible="si" nivelDemanda="media">
+                <nombre>Rollo de Manzana</nombre>
+                <descripcion>Rollo esponjoso relleno de compota de manzana especiada con canela y <etiqueta>toque sutil de nuez moscada</etiqueta>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">20.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>120g</pesoAprox>
+                        <tiempoHorneado>20 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Huevo fresco</ingrediente>
+                        <ingrediente alergeno="no">Manzanas golden cocidas</ingrediente>
+                        <ingrediente alergeno="no">Canela de Ceilán</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 rebanada</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 porción (120g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>310 kcal</calorias>
+                        <grasasTotales>7g</grasasTotales>
+                        <azucares>22g</azucares>
+                        <sodio>125mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Consumir fresco dentro de las 48 horas. Guardar en recipiente hermético en vitrina seca.]]></conservacion>
+            </producto>
+
+            <!-- 13. Ombligo -->
+            <producto id="prod-ombligo" categoriaRef="cat-dulces" codigo="DUL-013" disponible="si" nivelDemanda="media">
+                <nombre>Ombligo</nombre>
+                <descripcion>Pan dulce de pueblo con forma redondeada y hendidura azucarada central, con <destacado>mantequilla y aroma de anís</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">14.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>90g</pesoAprox>
+                        <tiempoHorneado>18 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla</ingrediente>
+                        <ingrediente alergeno="no">Esencia natural de anís</ingrediente>
+                        <ingrediente alergeno="no">Azúcar refinada</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (90g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>280 kcal</calorias>
+                        <grasasTotales>9g</grasasTotales>
+                        <azucares>13g</azucares>
+                        <sodio>150mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar en recipiente cerrado a temperatura ambiente (< 24°C).]]></conservacion>
+            </producto>
+
+            <!-- 14. Pay de Piña -->
+            <producto id="prod-pay-pina" categoriaRef="cat-dulces" codigo="DUL-014" disponible="si" nivelDemanda="alta">
+                <nombre>Pay de Piña</nombre>
+                <descripcion>Tarta individual con masa quebrada dorada y relleno generoso de <destacado>dulce de piña horneada con tropezones</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">28.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>140g</pesoAprox>
+                        <tiempoHorneado>30 minutos</tiempoHorneado>
+                        <temperaturaConsumo><frio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla gloria</ingrediente>
+                        <ingrediente alergeno="no">Piña dulce seleccionada</ingrediente>
+                        <ingrediente alergeno="no">Fécula de maíz y azúcar</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza individual</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (140g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>420 kcal</calorias>
+                        <grasasTotales>18g</grasasTotales>
+                        <azucares>32g</azucares>
+                        <sodio>190mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Se puede mantener refrigerado entre 4°C y 8°C. Sacar 15 min antes de consumir para disfrutar la masa tierna.]]></conservacion>
+            </producto>
+
+            <!-- 15. Pay de Manzana -->
+            <producto id="prod-pay-manzana" categoriaRef="cat-dulces" relacionado="prod-pay-pina" codigo="DUL-015" disponible="si" nivelDemanda="alta">
+                <nombre>Pay de Manzana</nombre>
+                <descripcion>Crocante base de pay rellena de manzanas caramelizadas con <destacado>canela, mantequilla y pasitas</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">28.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>140g</pesoAprox>
+                        <tiempoHorneado>30 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla pura</ingrediente>
+                        <ingrediente alergeno="no">Manzana verde y roja</ingrediente>
+                        <ingrediente alergeno="no">Canela y nuez moscada</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (140g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>400 kcal</calorias>
+                        <grasasTotales>17g</grasasTotales>
+                        <azucares>28g</azucares>
+                        <sodio>185mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Hornear 3 min a 160°C para degustar caliente & crujiente, opcionalmente con helado de vainilla.]]></conservacion>
+            </producto>
+
+            <!-- 16. Mini Rosca de Mantequilla -->
+            <producto id="prod-mini-rosca-mantequilla" categoriaRef="cat-dulces" codigo="DUL-016" disponible="si" nivelDemanda="media">
+                <nombre>Mini Rosca de Mantequilla</nombre>
+                <descripcion>Rosca individual esponjosa con masa madre aromática, cubierta de azúcar y <destacado>delicadas cerezas en almíbar</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">35.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>160g</pesoAprox>
+                        <tiempoHorneado>25 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla artesanal</ingrediente>
+                        <ingrediente alergeno="si">Huevo campero</ingrediente>
+                        <ingrediente alergeno="no">Cerezas marrasquino</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><charola/></empaque>
+                    <porciones>2 porciones</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (160g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>520 kcal</calorias>
+                        <grasasTotales>22g</grasasTotales>
+                        <azucares>30g</azucares>
+                        <sodio>250mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Mantener en su charolita con domo plástico transparente a temperatura ambiente (< 23°C).]]></conservacion>
+            </producto>
+
+            <!-- 17. Cuernitos de Chocolate -->
+            <producto id="prod-cuernitos-chocolate" categoriaRef="cat-dulces" codigo="DUL-017" disponible="si" nivelDemanda="alta">
+                <nombre>Cuernitos de Chocolate</nombre>
+                <descripcion>Croissant hojaldrado con forma de medialuna relleno y cubierto con <destacado>ganache de chocolate semiamargo y avellanas</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">22.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>105g</pesoAprox>
+                        <tiempoHorneado>21 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla de hojaldre</ingrediente>
+                        <ingrediente alergeno="si">Crema de chocolate y avellana</ingrediente>
+                        <ingrediente alergeno="si">Avellana tostada</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (105g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>390 kcal</calorias>
+                        <grasasTotales>21g</grasasTotales>
+                        <azucares>19g</azucares>
+                        <sodio>180mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar a temperatura < 22°C. Si se calienta, usar horno eléctrico 2 min a 150°C para fundir el centro.]]></conservacion>
+            </producto>
+
+            <!-- 18. Empanaditas de Piña -->
+            <producto id="prod-empanaditas-pina" categoriaRef="cat-dulces" relacionado="prod-rollo-pina" codigo="DUL-018" disponible="si" nivelDemanda="alta">
+                <nombre>Empanaditas de Piña</nombre>
+                <descripcion>Empanada tradicional de masa quebrada con manteca vegetal, rellena de <etiqueta>mermelada casera de piña</etiqueta> y revolcada en azúcar con canela.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">16.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>80g</pesoAprox>
+                        <tiempoHorneado>18 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="no">Dulce de piña casero</ingrediente>
+                        <ingrediente alergeno="no">Manteca vegetal</ingrediente>
+                        <ingrediente alergeno="no">Azúcar y canela</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (80g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>275 kcal</calorias>
+                        <grasasTotales>10g</grasasTotales>
+                        <azucares>17g</azucares>
+                        <sodio>110mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar en vitrina seca a temperatura ambiente. Vida útil de 5 días manteniendo frescura & textura crujiente.]]></conservacion>
+            </producto>
+
+        </categoria>
+
+        <!-- ==================================================================
+             CATEGORÍA 2: SALADOS (FAN-OUT = 12 subelementos producto directos >= 8)
+             ================================================================== -->
+        <categoria id="cat-salados" tipo="salado" activa="si">
+            <nombreCategoria>Panadería Salada y Rellenos Especiales</nombreCategoria>
+            <descripcionCategoria>Variedad de panes salados, baguettes, hojaldres rellenos y especialidades saladas horneadas con ingredientes gourmet.</descripcionCategoria>
+
+            <!-- 19. Garras Pizzeras -->
+            <producto id="prod-garras-pizzeras" categoriaRef="cat-salados" codigo="SAL-001" disponible="si" nivelDemanda="alta">
+                <nombre>Garras Pizzeras</nombre>
+                <descripcion>Hojaldre salado en forma de garra relleno de <destacado>salsa pomodoro italiana, queso gouda fundente y rodajas de pepperoni</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">28.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>130g</pesoAprox>
+                        <tiempoHorneado>22 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Queso gouda</ingrediente>
+                        <ingrediente alergeno="no">Pepperoni de cerdo</ingrediente>
+                        <ingrediente alergeno="no">Salsa de tomate con orégano</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (130g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>410 kcal</calorias>
+                        <grasasTotales>24g</grasasTotales>
+                        <azucares>4g</azucares>
+                        <sodio>620mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Consumir caliente. Recalentar en horno convencional a 180°C por 4 minutos para recuperar el crujiente & fundido.]]></conservacion>
+            </producto>
+
+            <!-- 20. Pay de Pollo -->
+            <producto id="prod-pay-pollo" categoriaRef="cat-salados" codigo="SAL-002" disponible="si" nivelDemanda="alta">
+                <nombre>Pay de Pollo</nombre>
+                <descripcion>Pastel individual de hojaldre relleno con <destacado>pechuga de pollo deshebrada, verduras en salsa bechamel cremosa</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">32.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>150g</pesoAprox>
+                        <tiempoHorneado>26 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla y leche</ingrediente>
+                        <ingrediente alergeno="no">Pechuga de pollo fresca</ingrediente>
+                        <ingrediente alergeno="no">Zanahorias y chícharos</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 porción individual</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (150g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>430 kcal</calorias>
+                        <grasasTotales>22g</grasasTotales>
+                        <azucares>3g</azucares>
+                        <sodio>580mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Mantener refrigerado a < 4°C si no se consume el mismo día. Calentar completamente antes de consumir.]]></conservacion>
+            </producto>
+
+            <!-- 21. Cuernitos Jamón con Queso -->
+            <producto id="prod-cuernitos-jamon-queso" categoriaRef="cat-salados" codigo="SAL-003" disponible="si" nivelDemanda="alta">
+                <nombre>Cuernitos Jamón con Queso</nombre>
+                <descripcion>Medialuna salada rellena de <destacado>jamón de pierna horneado y queso manchego fundido</destacado>, barnizada con ajonjolí.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">26.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>125g</pesoAprox>
+                        <tiempoHorneado>20 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Queso manchego</ingrediente>
+                        <ingrediente alergeno="si">Ajonjolí</ingrediente>
+                        <ingrediente alergeno="no">Jamón de pavo y pierna</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (125g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>370 kcal</calorias>
+                        <grasasTotales>18g</grasasTotales>
+                        <azucares>3g</azucares>
+                        <sodio>590mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Calentar en prensa o sartén a fuego bajo para gratinar el queso & dorar la corteza.]]></conservacion>
+            </producto>
+
+            <!-- 22. Empanaditas de Queso -->
+            <producto id="prod-empanaditas-queso" categoriaRef="cat-salados" relacionado="prod-empanaditas-pina" codigo="SAL-004" disponible="si" nivelDemanda="alta">
+                <nombre>Empanaditas de Queso</nombre>
+                <descripcion>Empanada salada de masa fina rellena de <destacado>queso crema Philadelphia y queso Oaxaca deshebrado</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">18.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>85g</pesoAprox>
+                        <tiempoHorneado>18 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Queso crema</ingrediente>
+                        <ingrediente alergeno="si">Queso Oaxaca</ingrediente>
+                        <ingrediente alergeno="si">Barniz de huevo</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (85g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>290 kcal</calorias>
+                        <grasasTotales>14g</grasasTotales>
+                        <azucares>2g</azucares>
+                        <sodio>340mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Guardar en refrigeración si no se consume dentro de 4 horas (< 6°C). Calentar 2 min en comal.]]></conservacion>
+            </producto>
+
+            <!-- 23. Bollitos Rellenos -->
+            <producto id="prod-bollitos-rellenos" categoriaRef="cat-salados" codigo="SAL-005" disponible="si" nivelDemanda="media">
+                <nombre>Bollitos Rellenos</nombre>
+                <descripcion>Suaves bollos de masa de papa rellenos de <destacado>picadillo de res tradicional con pasas y aceitunas</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">20.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>100g</pesoAprox>
+                        <tiempoHorneado>20 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="no">Carne molida de res 90/10</ingrediente>
+                        <ingrediente alergeno="no">Jitomate y cebolla</ingrediente>
+                        <ingrediente alergeno="no">Aceitunas sin hueso</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (100g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>310 kcal</calorias>
+                        <grasasTotales>12g</grasasTotales>
+                        <azucares>4g</azucares>
+                        <sodio>420mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar refrigerado. Para recalentar: calentar 1 minuto en microondas cubierto con servilleta húmeda.]]></conservacion>
+            </producto>
+
+            <!-- 24. Sandwich Saludable -->
+            <producto id="prod-sandwich-saludable" categoriaRef="cat-salados" codigo="SAL-006" disponible="si" nivelDemanda="alta">
+                <nombre>Sandwich Saludable</nombre>
+                <descripcion>Sandwich preparado en pan multigrano artesanal con <destacado>pechuga de pavo ahumada, queso panela, espinaca baby y aderezo de aguacate</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">35.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>210g</pesoAprox>
+                        <tiempoHorneado>15 minutos</tiempoHorneado>
+                        <temperaturaConsumo><frio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Pan multigrano integral</ingrediente>
+                        <ingrediente alergeno="si">Queso panela pasteurizado</ingrediente>
+                        <ingrediente alergeno="no">Pechuga de pavo bajo en sodio</ingrediente>
+                        <ingrediente alergeno="no">Espinacas baby orgánicas</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 porción completa</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 porción (210g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>320 kcal</calorias>
+                        <grasasTotales>9g</grasasTotales>
+                        <azucares>3g</azucares>
+                        <sodio>480mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Mantener en refrigeración a temperatura < 5°C. Consumir dentro de las primeras 24 horas de elaborado.]]></conservacion>
+            </producto>
+
+            <!-- 25. Pan Blanco -->
+            <producto id="prod-pan-blanco" categoriaRef="cat-salados" codigo="SAL-007" disponible="si" nivelDemanda="alta">
+                <nombre>Pan Blanco</nombre>
+                <descripcion>Barra de pan blanco de mesa tradicional con <etiqueta>corteza dorada y miga alveolada</etiqueta>, sin conservadores artificiales.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">12.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>250g</pesoAprox>
+                        <tiempoHorneado>25 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo de fuerza</ingrediente>
+                        <ingrediente alergeno="no">Agua purificada</ingrediente>
+                        <ingrediente alergeno="no">Levadura fresca</ingrediente>
+                        <ingrediente alergeno="no">Sal de mar</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 barra (4 porciones)</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 rebanada (60g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>150 kcal</calorias>
+                        <grasasTotales>1g</grasasTotales>
+                        <azucares>1g</azucares>
+                        <sodio>220mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar en bolsa de papel o panera a temperatura ambiente (< 24°C).]]></conservacion>
+            </producto>
+
+            <!-- 26. Pan Integral -->
+            <producto id="prod-pan-integral" categoriaRef="cat-salados" relacionado="prod-pan-blanco" codigo="SAL-008" disponible="si" nivelDemanda="alta">
+                <nombre>Pan Integral</nombre>
+                <descripcion>Hogaza elaborada con <destacado>100% harina de trigo entera con salvado y germen</destacado>, rica en fibra dietética.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">14.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>260g</pesoAprox>
+                        <tiempoHorneado>28 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo integral</ingrediente>
+                        <ingrediente alergeno="no">Salvado de trigo</ingrediente>
+                        <ingrediente alergeno="no">Masa madre activa</ingrediente>
+                        <ingrediente alergeno="no">Sal marina</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 hogaza (4 porciones)</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 rebanada (65g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>140 kcal</calorias>
+                        <grasasTotales>1g</grasasTotales>
+                        <azucares>1g</azucares>
+                        <sodio>180mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar en lugar fresco & seco. No exponer al sol.]]></conservacion>
+            </producto>
+
+            <!-- 27. Pan Integral Multigrano -->
+            <producto id="prod-pan-integral-multigrano" categoriaRef="cat-salados" relacionado="prod-pan-integral" codigo="SAL-009" disponible="si" nivelDemanda="alta">
+                <nombre>Pan Integral Multigrano</nombre>
+                <descripcion>Hogaza integral enriquecida con <destacado>siete semillas: chía, linaza, girasol, calabaza, ajonjolí, avena y mijo</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">18.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>280g</pesoAprox>
+                        <tiempoHorneado>30 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina integral de trigo</ingrediente>
+                        <ingrediente alergeno="si">Semillas de ajonjolí y linaza</ingrediente>
+                        <ingrediente alergeno="si">Copos de avena</ingrediente>
+                        <ingrediente alergeno="no">Pipas de girasol y calabaza</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza (5 porciones)</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 rebanada (55g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>155 kcal</calorias>
+                        <grasasTotales>3g</grasasTotales>
+                        <azucares>1g</azucares>
+                        <sodio>170mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Mantener protegido del aire en bolsa reutilizable a < 22°C.]]></conservacion>
+            </producto>
+
+            <!-- 28. Pan Integral Miel y Arándanos -->
+            <producto id="prod-pan-integral-miel-arandanos" categoriaRef="cat-salados" relacionado="prod-pan-integral" codigo="SAL-010" disponible="si" nivelDemanda="media">
+                <nombre>Pan Integral Miel y Arándanos</nombre>
+                <descripcion>Exquisita barra que combina harina integral con <destacado>miel pura de abeja de flor de azahar y arándanos deshidratados</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">22.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>270g</pesoAprox>
+                        <tiempoHorneado>28 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina integral de trigo</ingrediente>
+                        <ingrediente alergeno="no">Miel de abeja de azahar</ingrediente>
+                        <ingrediente alergeno="no">Arándanos rojos deshidratados</ingrediente>
+                        <ingrediente alergeno="no">Masa madre de centeno</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 barra (4 porciones)</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 rebanada (65g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>170 kcal</calorias>
+                        <grasasTotales>1.5g</grasasTotales>
+                        <azucares>6g</azucares>
+                        <sodio>165mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Guardar en panera a temperatura ambiente fresca (< 23°C). Ideal para tostar con queso de cabra.]]></conservacion>
+            </producto>
+
+            <!-- 29. Jochitos -->
+            <producto id="prod-jochitos" categoriaRef="cat-salados" codigo="SAL-011" disponible="si" nivelDemanda="alta">
+                <nombre>Jochitos</nombre>
+                <descripcion>Masa de pan brioche salado que envuelve una <destacado>salchicha de pavo de calidad premium, queso gouda y aderezo especial de mostaza dulce</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">25.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>135g</pesoAprox>
+                        <tiempoHorneado>20 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Queso gouda</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla</ingrediente>
+                        <ingrediente alergeno="no">Salchicha de pavo</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (135g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>380 kcal</calorias>
+                        <grasasTotales>19g</grasasTotales>
+                        <azucares>3g</azucares>
+                        <sodio>650mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Calentar en horno convencional a 170°C por 3 minutos antes de consumir para disfrutar crujiente.]]></conservacion>
+            </producto>
+
+            <!-- 30. Rollos Philadelphia -->
+            <producto id="prod-rollos-philadelphia" categoriaRef="cat-salados" codigo="SAL-012" disponible="si" nivelDemanda="alta">
+                <nombre>Rollos Philadelphia</nombre>
+                <descripcion>Hojaldre salado en espiral relleno generosamente de <destacado>auténtico queso Philadelphia, espinaca salteada y tocino crujiente</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">26.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>125g</pesoAprox>
+                        <tiempoHorneado>22 minutos</tiempoHorneado>
+                        <temperaturaConsumo><tibio/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Queso crema Philadelphia</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla de hojaldre</ingrediente>
+                        <ingrediente alergeno="no">Tocino de cerdo ahumado</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (125g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>395 kcal</calorias>
+                        <grasasTotales>22g</grasasTotales>
+                        <azucares>2g</azucares>
+                        <sodio>520mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar refrigerado a < 5°C. Consumir dentro de las 48 horas. Recalentar en horno tostador.]]></conservacion>
+            </producto>
+
+        </categoria>
+
+        <!-- ==================================================================
+             CATEGORÍA 3: TEMPORADA (PRODUCTOS FESTIVOS Y ESTACIONALES)
+             ================================================================== -->
+        <categoria id="cat-temporada" tipo="temporada" activa="si">
+            <nombreCategoria>Especialidades y Pan de Temporada</nombreCategoria>
+            <descripcionCategoria>Tradiciones mexicanas y festividades reflejadas en panes icónicos horneados con ingredientes selectos en sus épocas del año.</descripcionCategoria>
+
+            <!-- 31. Pan de Muerto -->
+            <producto id="prod-pan-muerto" categoriaRef="cat-temporada" codigo="TEMP-001" disponible="si" nivelDemanda="alta">
+                <nombre>Pan de Muerto</nombre>
+                <descripcion>Emblemático pan de tradición perfumado con <destacado>agua de azahar y ralladura de naranja</destacado>, con sus tradicionales canillas y cubierto de azúcar cristal.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">25.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>130g</pesoAprox>
+                        <tiempoHorneado>22 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla de vaca</ingrediente>
+                        <ingrediente alergeno="si">Huevo fresco</ingrediente>
+                        <ingrediente alergeno="no">Esencia natural de azahar</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><individual/></empaque>
+                    <porciones>1 pieza</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 pieza (130g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>390 kcal</calorias>
+                        <grasasTotales>14g</grasasTotales>
+                        <azucares>22g</azucares>
+                        <sodio>190mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Consérvese a < 24°C en bolsa hermética. Temporada de venta: Septiembre a Noviembre.]]></conservacion>
+            </producto>
+
+            <!-- 32. Rosca de Reyes -->
+            <producto id="prod-rosca-reyes" categoriaRef="cat-temporada" codigo="TEMP-002" disponible="si" nivelDemanda="alta">
+                <nombre>Rosca de Reyes</nombre>
+                <descripcion>Masa fina sabor naranja con tiras de dulce de higo, ate de membrillo y <destacado>generosa costra de pasta dulce de azúcar</destacado> con muñequitos tradicionales.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">180.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>1100g</pesoAprox>
+                        <tiempoHorneado>35 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla Gloria</ingrediente>
+                        <ingrediente alergeno="si">Huevo campero</ingrediente>
+                        <ingrediente alergeno="no">Ate surtido de sabores</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><charola/></empaque>
+                    <porciones>Rosca mediana (8 a 10 porciones)</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 porción (110g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>350 kcal</calorias>
+                        <grasasTotales>12g</grasasTotales>
+                        <azucares>24g</azucares>
+                        <sodio>180mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar en su caja cerrada en ambiente fresco (< 23°C & humedad moderada). Temporada: Enero.]]></conservacion>
+            </producto>
+
+            <!-- 33. Rosca de Ciruelas -->
+            <producto id="prod-rosca-ciruelas" categoriaRef="cat-temporada" relacionado="prod-rosca-reyes" codigo="TEMP-003" disponible="si" nivelDemanda="media">
+                <nombre>Rosca de Ciruelas</nombre>
+                <descripcion>Exquisita rosca festiva navideña rellena y coronada con <destacado>ciruelas pasas maceradas en licor dulce, nueces y glaseado al ron</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">160.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>950g</pesoAprox>
+                        <tiempoHorneado>32 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Nuez pecana picada</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla</ingrediente>
+                        <ingrediente alergeno="no">Ciruelas pasas selectas</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><charola/></empaque>
+                    <porciones>Rosca mediana (8 porciones)</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>1 porción (118g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>375 kcal</calorias>
+                        <grasasTotales>13g</grasasTotales>
+                        <azucares>28g</azucares>
+                        <sodio>160mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Mantener en caja a temperatura ambiente. Por su maceración en licor, se conserva en óptimas condiciones hasta 7 días.]]></conservacion>
+            </producto>
+
+            <!-- 34. Charolitas Navideñas -->
+            <producto id="prod-charolitas-navidenas" categoriaRef="cat-temporada" codigo="TEMP-004" disponible="si" nivelDemanda="alta">
+                <nombre>Charolitas Navideñas</nombre>
+                <descripcion>Surtido fino de galletas navideñas de mantequilla decoradas con glaseado real y <destacado>polvorones sevillanos espolvoreados con azúcar y canela</destacado>.</descripcion>
+                <precio moneda="MXN" ivaIncluido="si">120.00</precio>
+                <detalle>
+                    <especificaciones>
+                        <pesoAprox>500g</pesoAprox>
+                        <tiempoHorneado>16 minutos</tiempoHorneado>
+                        <temperaturaConsumo><ambiente/></temperaturaConsumo>
+                    </especificaciones>
+                    <ingredientes>
+                        <ingrediente alergeno="si">Harina de trigo</ingrediente>
+                        <ingrediente alergeno="si">Mantequilla pura de vaca</ingrediente>
+                        <ingrediente alergeno="si">Almendra molida</ingrediente>
+                        <ingrediente alergeno="no">Azúcar glas y canela</ingrediente>
+                    </ingredientes>
+                    <elaborado><artesanal hechoAMano="si"/></elaborado>
+                </detalle>
+                <presentacion>
+                    <empaque><charola/></empaque>
+                    <porciones>Charola de 500g (aprox. 16 galletas)</porciones>
+                </presentacion>
+                <informacionNutricional>
+                    <porcNutricional>3 galletas (90g)</porcNutricional>
+                    <valoresNutricionales>
+                        <calorias>390 kcal</calorias>
+                        <grasasTotales>19g</grasasTotales>
+                        <azucares>21g</azucares>
+                        <sodio>110mg</sodio>
+                    </valoresNutricionales>
+                </informacionNutricional>
+                <conservacion><![CDATA[Conservar bien envuelta en papel celofán para mantener lo crocante de las galletas. Temporada: Diciembre.]]></conservacion>
+            </producto>
+
+        </categoria>
+
+    </categorias>
+
+    <!-- COMBOS PROMOCIONALES (Demuestra IDREFS para referenciar múltiples productos ID) -->
+    <combosPromocionales>
+        <combo id="combo-desayuno-tradicional" descuento="15%">
+            <nombreCombo>Combo Desayuno Tradicional Azomalli</nombreCombo>
+            <descripcionCombo>Paquete clásico para comenzar la mañana con el mejor sabor dulce y salado.</descripcionCombo>
+            <precioCombo moneda="MXN">45.00</precioCombo>
+            <!-- IDREFS: Hace referencia a tres IDs de productos del catálogo -->
+            <productosIncluidos referencias="prod-concha prod-bisquetes prod-cuernitos-jamon-queso"/>
+        </combo>
+
+        <combo id="combo-merienda-dulce" descuento="20%">
+            <nombreCombo>Combo Merienda Dulce Familiar</nombreCombo>
+            <descripcionCombo>Cuarteto de panes dulces favoritos de la familia para disfrutar con café o leche.</descripcionCombo>
+            <precioCombo moneda="MXN">65.00</precioCombo>
+            <!-- IDREFS: Hace referencia a cuatro IDs de productos -->
+            <productosIncluidos referencias="prod-roles-canela prod-chocolatines prod-mantecadas prod-muffins"/>
+        </combo>
+
+        <combo id="combo-degustacion-temporada" descuento="10%">
+            <nombreCombo>Combo Festivo Especial</nombreCombo>
+            <descripcionCombo>Degustación festiva para celebrar fechas tradicionales con nuestra panadería artesanal.</descripcionCombo>
+            <precioCombo moneda="MXN">38.00</precioCombo>
+            <!-- IDREFS: Hace referencia a productos de temporada y tradicionales -->
+            <productosIncluidos referencias="prod-pan-muerto prod-pan-mantequilla"/>
+        </combo>
+    </combosPromocionales>
+
+</CatalogoLasGloriasDeAzomalli>
